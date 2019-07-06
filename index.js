@@ -1,18 +1,20 @@
 import express from 'express';
 import graphqlHTTP from 'express-graphql';
-import schema from './schema'
+import schema from './schema';
+import resolvers from './resolvers';
+
 const app = express();
+const port = 7000;
 
 app.get('/', (req, res) => {
   res.send('Todo bien')
 });
 
-const root = {hola: () => "Hola mundo"}
-
 app.use('/graphql', graphqlHTTP({
   schema,
-  rootValue: root,
+  rootValue: resolvers,
   graphiql: true,
 }))
 
-app.listen(7000, () => console.log('Servidor encendido'));
+
+app.listen(port, () => console.log(`Server on in port: ${port}`));
